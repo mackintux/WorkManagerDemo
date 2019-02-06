@@ -4,9 +4,11 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.*
+import com.yobijoss.workmanagerdemo.io.CleanupWorker
 import com.yobijoss.workmanagerdemo.io.CompressToFileWork
 import com.yobijoss.workmanagerdemo.io.UploadWork
 import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESS_URI
+import com.yobijoss.workmanagerdemo.utils.PROCESS_IMAGE_WORK_NAME
 
 class ImageListViewModel : ViewModel() {
 
@@ -35,6 +37,9 @@ class ImageListViewModel : ViewModel() {
 
         uriListLiveData.value?.forEach {
 
+            val cleanUpWork = OneTimeWorkRequest.Builder(CleanupWorker::class.java)
+                .build()
+
             val compressWork = OneTimeWorkRequest.Builder(CompressToFileWork::class.java)
                 .setInputData(createInputDataForUri(it))
                 .setConstraints(compressConstraints)
@@ -46,7 +51,8 @@ class ImageListViewModel : ViewModel() {
                 .build()
 
            workManager
-               .beginWith(compressWork)
+               .beginUniqueWork(PROCESS_IMAGE_WORK_NAME, ExistingWorkPolicy.APPEND ,cleanUpWork)
+               .then(compressWork)
                .then(uploadWork)
                .enqueue()
         }

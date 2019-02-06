@@ -1,0 +1,4 @@
+
+
+//Cuando hablemos de Unique y estrategias existentes.
+.beginUniqueWork(PROCESS_IMAGE_WORK_NAME, ExistingWorkPolicy.APPEND ,cleanUpWork)
