@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.*
 import com.yobijoss.workmanagerdemo.io.CleanupWorker
-import com.yobijoss.workmanagerdemo.io.CompressToFileWork
 import com.yobijoss.workmanagerdemo.io.UploadWork
 import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESS_URI
-import com.yobijoss.workmanagerdemo.utils.PROCESS_IMAGE_WORK_NAME
+import com.yobijoss.workmanagerdemo.utils.KEY_UPLOAD_URI
 
 class ImageListViewModel : ViewModel() {
 
@@ -27,9 +26,6 @@ class ImageListViewModel : ViewModel() {
     }
 
     fun syncImages() {
-        val compressConstraints = Constraints.Builder()
-            .setRequiresBatteryNotLow(true)
-            .build()
 
         val uploadConstraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -40,19 +36,14 @@ class ImageListViewModel : ViewModel() {
             val cleanUpWork = OneTimeWorkRequest.Builder(CleanupWorker::class.java)
                 .build()
 
-            val compressWork = OneTimeWorkRequest.Builder(CompressToFileWork::class.java)
-                .setInputData(createInputDataForUri(it))
-                .setConstraints(compressConstraints)
-                .build()
-
 
             val uploadWork = OneTimeWorkRequest.Builder(UploadWork::class.java)
+                .setInputData(createInputDataForUri(it))
                 .setConstraints(uploadConstraints)
                 .build()
 
            workManager
-               .beginUniqueWork(PROCESS_IMAGE_WORK_NAME, ExistingWorkPolicy.APPEND ,cleanUpWork)
-               .then(compressWork)
+               .beginWith(cleanUpWork)
                .then(uploadWork)
                .enqueue()
         }
@@ -62,7 +53,7 @@ class ImageListViewModel : ViewModel() {
         val builder = Data.Builder()
 
         uriListLiveData.value?.let {
-            builder.putString(KEY_COMPRESS_URI, uri.toString())
+            builder.putString(KEY_UPLOAD_URI, uri.toString()) //todo en el siguiente work  cambia el key a compress
         }
 
         return builder.build()

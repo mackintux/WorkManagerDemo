@@ -1,6 +1,8 @@
 package com.yobijoss.workmanagerdemo.utils
 
 
+const val TAG = "WorkerDemo"
+
 //Workflow Constants
 const val KEY_COMPRESS_URI = "imageCompressKey"
 const val KEY_UPLOAD_URI = "imageUploadKey"

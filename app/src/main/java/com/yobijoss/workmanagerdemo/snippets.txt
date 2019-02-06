@@ -1,4 +1,40 @@
+Flujo de la charla
+
+Que se hacía antes.
+    JobScheduler
+
+Como se hace ahora.
+
+Que vamos a usar.
+
+Descripción del código.
 
 
-//Cuando hablemos de Unique y estrategias existentes.
+## agregando un nuevo task
+  val compressConstraints = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+ val uri = Uri.parse(inputData.getString(KEY_COMPRESS_URI))
+
+        val resolver = applicationContext.contentResolver
+        val image = BitmapFactory.decodeStream(resolver.openInputStream(uri))
+
+        Log.d(TAG, "Compressing ${uri.lastPathSegment}")
+
+        val outputUri = writeBitmapToFile(context, image, uri.lastPathSegment)
+
+        val outputData = Data.Builder()
+            .putString(KEY_UPLOAD_URI, outputUri.toString())
+            .build()
+
+        return Result.success(outputData)
+
+NO SE TE OLVIDE CAMBIAR EL KEY AL COMPRESS EN
+
+ImageListViewModel.createInputDataForUri()
+
+## As enfasis en los inputs y outputs
+
+## Cuando hablemos de Unique y estrategias existentes.
 .beginUniqueWork(PROCESS_IMAGE_WORK_NAME, ExistingWorkPolicy.APPEND ,cleanUpWork)
