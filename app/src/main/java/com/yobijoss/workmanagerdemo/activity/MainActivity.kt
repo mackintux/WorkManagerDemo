@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity() {
             Observer { list -> list?.let { updateList(it) } }
         )
 
+        val recyclerView = getRecyclerView()
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
+
         fab.setOnClickListener {
             getImageFromGallery()
         }
-
-        val recyclerView = getRecyclerView()
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

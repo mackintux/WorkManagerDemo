@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.*
-import com.yobijoss.workmanagerdemo.io.CompressWork
+import com.yobijoss.workmanagerdemo.io.CompressToFileWork
 import com.yobijoss.workmanagerdemo.io.UploadWork
 import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESS_URI
 
@@ -35,7 +35,7 @@ class ImageListViewModel : ViewModel() {
 
         uriListLiveData.value?.forEach {
 
-            val compressWork = OneTimeWorkRequest.Builder(CompressWork::class.java)
+            val compressWork = OneTimeWorkRequest.Builder(CompressToFileWork::class.java)
                 .setInputData(createInputDataForUri(it))
                 .setConstraints(compressConstraints)
                 .build()
