@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.work.*
 import com.yobijoss.workmanagerdemo.io.CompressWork
 import com.yobijoss.workmanagerdemo.io.UploadWork
-import com.yobijoss.workmanagerdemo.utils.KEY_IMAGE_URI
+import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESS_URI
 
 class ImageListViewModel : ViewModel() {
 
@@ -56,7 +56,7 @@ class ImageListViewModel : ViewModel() {
         val builder = Data.Builder()
 
         uriListLiveData.value?.let {
-            builder.putString(KEY_IMAGE_URI, uri.toString())
+            builder.putString(KEY_COMPRESS_URI, uri.toString())
         }
 
         return builder.build()

@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.firebase.storage.FirebaseStorage
-import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESSED_URI
+import com.yobijoss.workmanagerdemo.utils.KEY_UPLOAD_URI
 
 class UploadWork(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
@@ -13,7 +13,7 @@ class UploadWork(context: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         val storage = FirebaseStorage.getInstance()
 
-        val uri = Uri.parse(inputData.getString(KEY_COMPRESSED_URI))
+        val uri = Uri.parse(inputData.getString(KEY_UPLOAD_URI))
         val compressImageReference = storage.reference.child("images/${uri.lastPathSegment}")
 
         val uploadTask = compressImageReference.putFile(uri)
