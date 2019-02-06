@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "318959852047",
+    "firebase_url": "https://workmanagerdemo-yobi.firebaseio.com",
+    "project_id": "workmanagerdemo-yobi",
+    "storage_bucket": "workmanagerdemo-yobi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318959852047:android:a6747a23e9feff77",
+        "android_client_info": {
+          "package_name": "com.yobijoss.workmanagerdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318959852047-jm1503lts1lha6pk2lli9j0b8afandl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpIj8zeDKQFeNT3H_8sjSQEejTV9bwQ4g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
