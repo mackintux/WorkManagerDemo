@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ic_image"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_centerInParent="false"
+        fresco:actualImageScaleType="fitCenter" />
+
+</androidx.cardview.widget.CardView>
+
+
