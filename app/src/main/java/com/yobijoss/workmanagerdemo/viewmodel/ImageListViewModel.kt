@@ -1,19 +1,26 @@
 package com.yobijoss.workmanagerdemo.viewmodel
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.*
 import com.yobijoss.workmanagerdemo.io.CleanupWorker
 import com.yobijoss.workmanagerdemo.io.UploadWork
-import com.yobijoss.workmanagerdemo.utils.KEY_COMPRESS_URI
 import com.yobijoss.workmanagerdemo.utils.KEY_UPLOAD_URI
+import com.yobijoss.workmanagerdemo.utils.TAG_UPLOAD
 
 class ImageListViewModel : ViewModel() {
 
     private val workManager: WorkManager = WorkManager.getInstance()
 
+    val outputWorkInfos: LiveData<List<WorkInfo>>
+
     val uriListLiveData: MutableLiveData<ArrayList<Uri>> = MutableLiveData()
+
+    init {
+        outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_UPLOAD)
+    }
 
     fun addUri(uri: Uri) {
         var uriList = uriListLiveData.value
@@ -40,6 +47,7 @@ class ImageListViewModel : ViewModel() {
             val uploadWork = OneTimeWorkRequest.Builder(UploadWork::class.java)
                 .setInputData(createInputDataForUri(it))
                 .setConstraints(uploadConstraints)
+                .addTag(TAG_UPLOAD)
                 .build()
 
            workManager

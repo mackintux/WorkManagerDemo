@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkInfo
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.material.snackbar.Snackbar
 import com.yobijoss.workmanagerdemo.R
@@ -28,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
         Fresco.initialize(application)
+
+        val recyclerView = getRecyclerView()
+        recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         imageListViewModel = ViewModelProviders.of(this).get(ImageListViewModel::class.java)
         imageListViewModel.uriListLiveData.observe(
@@ -36,16 +41,26 @@ class MainActivity : AppCompatActivity() {
             Observer { list -> list?.let { updateList(it) } }
         )
 
-        val recyclerView = getRecyclerView()
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
+        imageListViewModel.outputWorkInfos.observe(this, logStatus())
 
         fab.setOnClickListener {
             getImageFromGallery()
         }
     }
 
+    private fun logStatus(): Observer<List<WorkInfo>> {
+        return Observer { list ->
+
+            list?.let {
+                if (list.isNotEmpty()) {
+                    statusTextView.append("Work [${list[0].tags.last()}] is Finished?  ${list[0].state.isFinished} \n")
+                }
+            }
+        }
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -84,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun syncImages(): Boolean {
+        statusTextView.text = ""
         imageListViewModel.syncImages()
         return true
     }

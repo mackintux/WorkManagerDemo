@@ -38,3 +38,5 @@ ImageListViewModel.createInputDataForUri()
 
 ## Cuando hablemos de Unique y estrategias existentes.
 .beginUniqueWork(PROCESS_IMAGE_WORK_NAME, ExistingWorkPolicy.APPEND ,cleanUpWork)
+
+## Habla de que tam bién se puede usar para hacer prefetch de datos.

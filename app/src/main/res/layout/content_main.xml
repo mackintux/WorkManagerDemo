@@ -9,6 +9,7 @@
     tools:context=".activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecycleView"
         android:layout_width="match_parent"
@@ -17,5 +18,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageRecycleView"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"/>
+    </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
